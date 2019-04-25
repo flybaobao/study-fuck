@@ -26,4 +26,37 @@ Object.keys(obj);
 console.log(Object.keys(obj));
 for(let val of Object.keys(obj)){
     console.log(val);
-};
+}
+
+/* 过滤 fitter
+
+ fitter 不会改变原数组，
+        过滤后的新数组
+         回掉函数的返回结果
+
+         如果返回是true  他就会放到新数组里去     作用于 （ 删除）
+* */
+ let newArr = [1,2,3,4,5].filter(function(item){
+     return item>2 && item <5;
+ });
+console.log(newArr);
+
+/*
+* map 映射  将原有的数组映射成一个新数组[1,2,3]
+*       不会操作原数组·返回的是个新数组，  回调函数中返回什么 这一项就是什么
+*
+*
+*       作用于   9更新 ）
+* */
+
+let arr1 = [1,2,3,500].map(function(item){
+    return 4;
+});
+console.log(arr1);  //  返回什么，数组对应的就会变成什么
+
+//  1.题目
+
+let arr2 = [1,2,3,500].map(function(item){
+    return `<li>${item}</li>>`;
+});
+console.log(arr2.join(''));
