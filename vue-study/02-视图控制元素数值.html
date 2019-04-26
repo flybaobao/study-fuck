@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <!--moustache  小胡子语法 可以赋值  取值  三元-->
+    {{msg}}
+    {{msg === 'hello world' ? 1 : 0}}.
+
+    <!--表单元素
+        input radio checkbox select textarea
+    来控制指令 directive-->
+    <!--v-model z指令-->
+    <input type="text" v-model="msg">
+</div>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    // 引入vue文件之后，会给一个Vue的构造函数
+    let vm = new Vue({ // vm = viewModel
+        el: "#app", // 告诉vue能管理的哪个部分
+        data:{
+            // data中的数据会被 vm 所代理
+            msg:'hello world' // 可以通过vm.msg渠道对应的内存
+        }
+    });
+</script>
+
+</body>
+</html>
