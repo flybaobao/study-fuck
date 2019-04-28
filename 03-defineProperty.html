@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>来实现  数据的双绑定 在原生的基础上</title>
+</head>
+<body>
+<input type="text" id="app">
+<script>
+//    let obj = {}
+//    Object.definePtoperty(obj, 'name', {
+//        configurable: false, // 手否被删除
+//        writable: false, // 是否被编写
+//        enumerable: false, //  是否被循环遍历
+//        value: 1 // 值
+//    });
+    let app = document.getElementById("app");
+
+    let obj = {};
+
+    let temp = {};
+
+    Object.defineProperty(obj, 'name', {
+        get: function() { // 取 obj的 name 时会调用get 方法
+            return temp["name"];
+        },
+        set: function(val) { // 给obj的 name赋值时会调用 get 方法
+            temp["name"] = val;
+            app.value = obj.name;
+        }
+    });
+
+    app.value = obj.name; // 页面一加载就调用  obj 的name值  给输入框
+
+    app.addEventListener('input', function() {
+        obj.name = this.value; // 当值变化时将input输入框里面的值  赋值给obj name
+    });
+</script>
+</body>
+</html>

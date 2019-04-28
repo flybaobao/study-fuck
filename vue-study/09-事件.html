@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件</title>
+</head>
+<body>
+    <!--<button id="btn" onclick="fn()">点击</button>-->
+    <div id="app">
+        <div v-on:click="fn" id="btn2">点我啊</div>
+        <div @click="fn" id="btn1">点我啊</div>
+    </div>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+//    function fn(){
+//        alert('1')
+//    }
+//    console.log(btn.onclick);
+    // 引入vue文件之后，会给一个Vue的构造函数
+    let vm = new Vue({ // vm = viewModel
+        el: '#app',
+        data: { // data 里面放的都是数据
+            msg: '我最帅'
+        },
+        methods: { // 这里面是放一些方法
+            /*
+            * methods 和 data中的数据最终都会放到vm上  所以名字不要一样
+            * methods 中的  this  指向vm实例   在这里 最好不要使用  箭头函数  尖子头函数的this 指向编程window
+            * */
+
+            fn() {
+                alert(this.msg)
+            }
+        }
+    });
+</script>
+</body>
+</html>

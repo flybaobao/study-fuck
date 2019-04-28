@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <div>{{arr}}</div>
+
+</div>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    // 引入vue文件之后，会给一个Vue的构造函数
+    let vm = new Vue({ // vm = viewModel
+        el: "#app", // 告诉vue能管理的哪个部分
+        data:{
+            // data中的数据会被 vm 所代理
+            msg:'hello world', // 可以通过vm.msg渠道对应的内存
+            arr: [1,2,3,5,4]
+        }
+    });
+    // 1.改变属猪中的某一项是监控不到的
+    // vm.arr[0] = 1000; // vue 的基本原理是  get和 set    ，这方法只存在于对象中，对数组无效
+
+    // 2.vm.arr.length -= 2;
+
+    // 变异得方法 ：
+    /*
+    * pop push shift unshift sort reserve splice
+    *
+    * map fitter
+    * */
+
+    vm.arr = vm.arr.map(item => item*3);
+</script>
+
+</body>
+</html>

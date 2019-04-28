@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <div>{{a.school}}</div>
+
+</div>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    // 引入vue文件之后，会给一个Vue的构造函数
+    let vm = new Vue({ // vm = viewModel
+        el: "#app", // 告诉vue能管理的哪个部分
+        data: {
+            // data中的数据会被 vm 所代理
+            msg: 'hello world', // 可以通过vm.msg渠道对应的内存
+            a: {school: ''} // 最好是初始化
+        }
+    });
+    // 使用变量的 时候   先要初始化， 否则新添加的属性值 不会导致页面刷新
+
+
+    // 1>.如果不想 初始化变量  就是不想定义变量  可以采用下面的方法
+    vm.$set(vm.a, 'school', '光明小学'); // 给数据a添加一个属性
+    // 2>.还可以替换原对象
+    vm.a = {school: 'sdasda', age: '17', address: 'xxxx'}
+</script>
+
+</body>
+</html>
