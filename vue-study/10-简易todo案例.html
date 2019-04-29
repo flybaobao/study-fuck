@@ -2,19 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>helloWorld</title>
+    <title>ToDo</title>
 </head>
 <body>
-    <div id="app">
-        <input type="text" v->
-    </div>
+
+
+<!--modifiers 修饰语-->
+<div id="app">
+    <input type="text" v-model="val" @keydown.enter="fn">
+    <ul>
+        <li v-for="(item,index) in arr">{{item}}
+            <button @click="deleteDetail(index)">删除</button>
+        </li>
+    </ul>
+</div>
 <script src="./node_modules/vue/dist/vue.js"></script>
 <script>
     // 引入vue文件之后，会给一个Vue的构造函数
     let vm = new Vue({ // vm = viewModel
         el: "#app", // 告诉vue能管理的哪个部分
-        data:{
-
+        data: {
+            val: '',
+            arr: []
+        },
+        methods: {
+            fn() {
+                if (this.val.trim()) {
+                    this.arr.unshift(this.val);
+                }
+                this.val = '';
+            },
+            deleteDetail(value) {
+                this.arr = this.arr.filter((item, index) => index !== value);
+            }
         }
     });
 </script>
