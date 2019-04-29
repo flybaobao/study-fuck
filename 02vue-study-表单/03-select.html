@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>\</title>
+    <style>
+        [v-cloak]{
+            display: none;}
+    </style>
+</head>
+<body>
+<div id="app" v-cloak>
+    <select name=""   v-model="a">
+        <option value="" disabled>请选择</option>
+        <option value="1">香蕉</option>
+        <option value="2">苹果</option>
+        <option value="3">橘子</option>
+    </select>{{a}}
+    <select name="" v-model="b" multiple>
+        <option value="" disabled>请选择</option>
+        <option value="1">香蕉</option>
+        <option value="2">苹果</option>
+        <option value="3">橘子</option>
+    </select>{{b}}{{msg}}
+    <!--如果value属性不写   则取option中的值，请选择这一项要加disabled-->
+</div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            a: '',
+            b:[],
+            msg: 'hello world'
+        }
+    });
+</script>
+</body>
+</html>

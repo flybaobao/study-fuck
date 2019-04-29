@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>\</title>
+</head>
+<body>
+<div id="app">
+
+    <input type="radio" v-model="a" value="nan"> 男 <br>
+
+    <input type="radio" v-model="a" value="nv"> 女 {{a}}
+</div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            a: 'nan'
+        }
+    });
+</script>
+</body>
+</html>
