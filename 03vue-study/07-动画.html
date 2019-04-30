@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>动画不操作元素dom</title>
+    <style>
+        .styles{
+            width:100px;
+            height:100px;
+            color: white;
+            background-color: red;
+        }
+        .v-enter{
+            opacity: 0;
+        }
+        .v-enter-active{transition:1s linear;}
+        .v-leave-active{opacity: 0;transition:1s linear;}
+    </style>
+</head>
+<body>
+<div id="app">
+    <!--v-if 操作的dom   v-show操作的是 样式 -->
+    <!--如果频繁地操作dom 使用v-show，但数据一开始就确定下来了就使用v-if-->
+    <button @click="flag=!flag">点击</button>
+    <!--transition 告诉浏览器那一块要做动画-->
+    <transition>
+        <div class="styles" v-show="flag">
+            hello world
+        </div>
+    </transition>
+
+</div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data:{
+            flag:true
+        }
+    });
+</script>
+</body>
+</html>
