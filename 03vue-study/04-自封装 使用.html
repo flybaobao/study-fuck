@@ -6,16 +6,25 @@
 </head>
 <body>
 <div id="app">
-{{}}
+    {{products}}
 </div>
 <script src="../node_modules/vue/dist/vue.js"></script>
+<script src="./04-ajax-promise封装.js"></script>
 <script>
     let vm = new Vue({
         el: '#app',
         data: {
             a: 0,
-            b: [],
+            products: [],
             msg: 'hello world'
+        },
+        // 专门用来发生ajax的方法
+        created(){
+            ajax({url:'./cat.json'}).then((res)=>{
+                console.log(res)
+            },(err)=>{
+                console.log(err)
+            })
         }
     });
 </script>

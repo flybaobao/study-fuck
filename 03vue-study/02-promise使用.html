@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>promise</title>
+</head>
+<body>
+<script>
+    // 解决异步 回调 问题
+    let b;
+    let p = new Promise((resolve,reject)=>{
+        setTimeout(function(){
+            b="小鸡";
+            if(b == "小鸡炖"){
+                resolve(b)
+            } else {
+                reject(b)
+            }
+        });
+    });
+    p.then((val)=>{
+        alert('成功啦'+ val)
+    },(err)=>{
+        alert('失败啦' + err)
+    });
+    /*
+    * 在一个异步函数完成之后，再去调用另外一个异步函数
+    * 在这个时候就需要使用 promise 这个函数
+    * 三个状态：
+    *    成功态
+    *      resolve 代表的是转向成功态
+    *    失败态
+    *      reject  代表的是转失败态
+    *    等待
+    * promise 的实例就一个 .then 方法 then 方法有两个参数
+    *   第一个是 成功时调用的 函数
+    *   第二个 是 失败时调用的函数
+    * /
+
+    /*
+    * 回调函数定义：
+    *      将后续的处理逻辑传到当前要做的事，事情处理完在处理回调
+    * */
+    let a;
+    function buy(calBack){
+        setTimeout(()=>{
+            a = '蘑菇';
+            calBack(a);
+        },2000)
+    }
+    buy(function cookie(val){
+        console.log(val)
+    });
+</script>
+</body>
+</html>
