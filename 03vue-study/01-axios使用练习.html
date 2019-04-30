@@ -6,7 +6,7 @@
 </head>
 <body>
 <div id="app">
-{{products}}
+    {{products}}
 </div>
 <script src="../node_modules/vue/dist/vue.js"></script>
 <script src="../node_modules/axios/dist/axios.js"></script>
@@ -34,12 +34,12 @@
 
             // 箭头函数
             axios.get('./cat.json').then(res =>{
-                // 成功的回调函数
-                console.log(res);
-                this.products = res.data;}
-            ,err =>{
-                // 失败的回调函数
-                console.log(err)}
+                    // 成功的回调函数
+                    console.log(res);
+                    this.products = res.data;}
+                ,err =>{
+                    // 失败的回调函数
+                    console.log(err)}
             );
         }
     });
