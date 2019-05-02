@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="a">
+        <div>{{msg}}</div>
+    </div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+    * 用到数据计算时   同步的用  computed
+    *
+    *                 异步的用  watch
+    * */
+
+
+    // computed 默认调用的 是get方法   必须要有return
+    // computed 不支持异步
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            a: '',
+            msg: ''
+        },
+        watch: { // watch 支持异步    只有变化时候才会触发
+
+            /*
+            * 这里想要的效果  是 当输入文字的  后几秒钟之后  在渲染出来，就要  用到 定时器，那么这个时候    用computed  来计算 值得时候  就不能用了，
+            * 所以我们在这个 需求的上面就用到   watch  这个方法
+            * */
+
+            a(newVal, oldVal){ // watch 的属性名字  要和观察的人的名字一致
+
+                setTimeout(()=>{
+                    console.log(newVal+oldVal);
+                    if(newVal.length <3){
+                        return this.msg = '人少'
+                    }
+                    if(newVal.length>6) {
+                        return this.msg = '人多'
+                    }
+                    return this.msg = ''
+                },500);
+            }
+        }
+    })
+</script>
+</body>
+</html>
