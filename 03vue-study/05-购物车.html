@@ -67,7 +67,7 @@
         methods: {
             sum(){
                 //求和
-                return this.products.reduce((prev,next)=>{
+                return this.products.reduce((prev,next) =>{
                     if(!next.isSelected) return prev;
                     return prev + next.productPrice*next.productCount
                 },0)

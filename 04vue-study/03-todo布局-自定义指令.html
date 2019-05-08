@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>todo</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <style>
+        .a {
+            position: absolute;
+            top:100px;
+            left:100px;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <button v-color="flag">这是一个自定义的指令</button>
+    <!-- As a heading -->
+    <nav class="navbar  navbar-dark bg-dark">
+        <span class="navbar-brand mb-0 h1">ToDo</span>
+    </nav>
+    <div v-drag class="a"></div>
+    <div v-drag class="a"></div>
+    <div v-drag class="a"></div>
+    <div v-drag class="a"></div>
+    <div v-drag class="a"></div>
+    <div v-drag class="a"></div>
+    <div v-drag class="a"></div>
+
+</div>
+
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            flag: 'red'
+        },
+        directives: {
+            color(el, bindings) {// el 是指 绑定的 dom元素
+                el.style.background = bindings.value;
+            },
+            // 拖拽
+            drag(el) {
+                el.onmousedown = function (e) {
+                    var disx = e.pageX - el.offsetLeft;
+                    var disY = e.pageY - el.offsetTop;
+                    document.onmousemove = function (e) {
+                        el.style.left = e.pageX - disx  + 'px';
+                        el.style.top = e.pageY - disY + 'px';
+                    }
+                    document.onmouseup = function () {
+                        document.onmousemove = document.onmouseup = null;
+                    }
+                    e.preventDefault();
+                }
+
+            }
+        }
+    });
+</script>
+</body>
+</html>

@@ -6,10 +6,8 @@ function ajax ({type = 'get',url='',dataType = 'json'}) {
         xhr.onload = function () {
             // xhr.readState = 4  xhr.status = 200
             if (xhr.status === 200){
-
                 resolve(xhr.response) //成功回调
             }else{
-
                 reject(err) // 失败时代用失败的方法
             }
         };

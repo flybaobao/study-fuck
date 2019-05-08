@@ -34,7 +34,7 @@
             * */
 
             a(newVal, oldVal){ // watch 的属性名字  要和观察的人的名字一致
-
+                this.msg = '....'
                 setTimeout(()=>{
                     console.log(newVal+oldVal);
                     if(newVal.length <3){
@@ -44,7 +44,7 @@
                         return this.msg = '人多'
                     }
                     return this.msg = ''
-                },500);
+                },3000);
             }
         }
     })
