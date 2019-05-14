@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js原生页面hash路由</title>
+    <style>
+        ul, li {
+            list-style: none;
+        }
+
+        ul {
+            float: left;
+            width: 200px;
+        }
+
+        li {
+            padding: 8px 15px;
+            background: #B8cbf7;
+            text-align: center;
+        }
+
+        a {
+            color: #86FF00;
+        }
+
+        #result {
+            height: 200px;
+            margin-left: 200px;
+            line-height: 200px;
+            font-size: 30px;
+            color: #D64BD3;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <ul>
+        <li><a href="#/">首页</a></li>
+        <li><a href="#/product">产品</a></li>
+        <li><a href="#/server">服务</a></li>
+    </ul>
+    <div id="result"></div>
+</div>
+<script>
+    // 一、路由构造器
+    function Router() {
+        // 接收所有的配置路由内容： 锚 和函方法
+        this.routers = {
+        };
+
+        this.curUrl = ""; // 接收 改变后的 hash值
+
+        // 定义 的所有路由和 函数方法 传给 routes
+        this.route = (path, callback) => {
+            this.routers[path] = callback || function () {
+            };
+            console.log('routers[path]：' + this.routers[path])
+        };
+
+        // hash 值改变时  要触发 函数方法
+        this.refresh = () => {
+            // 获取改变的  hash值  （url中锚 # 号后面的文本）
+            this.curUrl = location.hash.slice(1) || '/';
+            this.routers[this.curUrl]();
+
+            console.log('location.hash:' + location.hash);
+            console.log('curUrl:' + this.curUrl);
+//            console.log('this.routes[this.curUrl]:' + this.routes[this.curUrl]);
+        };
+
+        // 监听 load （加载 url）、hashchange （hash 改变）事件
+        this.init = () => {
+            window.addEventListener('load', this.refresh.bind(this), false);
+            window.addEventListener('hashchange', this.refresh.bind(this), false);
+            console.log(this);
+        };
+    };
+
+    // 二、使用 路由器构造器
+    let R = new Router();
+
+    R.init();// 监听时间
+    let res = document.getElementById('result'); // 读取ID为 result 的元素
+
+    R.route('/', () => {
+        res.style.background = 'blue';
+        res.innerHTML = '这里是首页';
+    });
+
+    R.route('/product', () => {
+        res.style.background = 'orange';
+        res.innerHTML = '这里是产品页';
+    });
+
+    R.route('/server', () => {
+        res.style.background = 'back';
+        res.innerHTML = '这里是服务页';
+    });
+
+
+</script>
+</body>
+</html>

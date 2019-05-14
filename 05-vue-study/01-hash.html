@@ -2,15 +2,116 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>js路由hash</title>
+    <style>
+        ul, li {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        ul {
+            height: 50px;
+        }
+
+        li {
+            display: inline-block;
+            width: 25%;
+            border: 2px solid #D64BD3;
+        }
+
+        .info {
+            height: 200px;
+            text-align: center;
+            font-size: 50px;
+            line-height: 200px;
+        }
+    </style>
 </head>
 <body>
+<div class="container">
+    <ul>
+        <li><a href="#/">首页</a></li>
+        <li><a href="#/info">个人信息</a></li>
+        <li><a href="#/product">产品</a></li>
+    </ul>
+    <div class="info"></div>
+</div>
 <script>
-    // 浏览器自带的行为
+    function Router() {
+        this.routers = {};
+        this.curUrl = '';
+        this.route = (path, callback) => {
+            this.routers[path] = callback || function () {
+            };
+        };
+        this.refesh = () =>
+        {
+            this.curUrl  = location.hash.slice(1) || '/';
+            this.routers[this.curUrl]();
+        }
+        ;
+        this.init = () =>{
+            window.addEventListener('load',this.refesh.bind(this),false);
+            window.addEventListener('hashchange',this.refesh.bind(this),false);
+        };
 
-    window.addEventListener('hashchange',()=>{
-        alert('12332')
-    },false);
+    }
+
+    let R = new Router();
+
+    let info = document.getElementsByClassName('info')[0];
+
+    R.route('/',()=>{
+        info.innerHTML = `this is index`
+    });
+
+    R.route('/info',() =>{
+        info.innerHTML = `<p>这是个人信息<p>姓名：二狗</p></p>`
+    });
+
+    R.route('/product',()=>{
+        info.innerHTML=`this is product's page`
+
+    });
+
+    R.init();
+
+</script>
+
+
+<script>
+    //    function Router() {
+    //        this.routers = {};
+    //
+    //        this.curUrl = '';
+    //        this.route = (path, callback) => {
+    //            this.routers[path] = callback || function(){};
+    //        };
+    //        this.refesh = () =>{
+    //            this.curUrl = location.hash.slice(1) || '/';
+    //            this.routers[this.curUrl]();
+    //        };
+    //        this.init = () =>{
+    //            window.addEventListener('load', this.refesh.bind(this),false);
+    //            window.addEventListener('hashchange',this.refesh.bind(this),false);
+    //        };
+    //    }
+    //    let R = new Router();
+    //
+    //    var user_id  = document.getElementsByClassName('info')[0];
+    //    R.route('/',()=>{
+    //        user_id.innerHTML = `this is 首页`;``
+    //    });
+    //
+    //    R.route('/info',()=>{
+    //        user_id.innerHTML = `this is 个人信息`;
+    //    });
+    //    R.route('/product',()=>{
+    //        user_id.innerHTML = `this is 产品`;
+    //    });
+    //
+    //    R.init();
 </script>
 </body>
 </html>
