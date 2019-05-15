@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>emit  and on</title>
+</head>
+<body>
+<div id="app">
+    父亲：{{money}}
+    <child :m="money" @child-msg="things"></child>
+</div>
+
+</body>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    // 父亲 通过绑定一些事件 ，儿子触发这个事件，并将参数传递过去  单项数据流 父亲数据刷新 儿子 就刷新
+
+    let vm = new Vue({
+        el: '#app',
+        data:{
+            money:100
+        },
+        methods:{
+            things(val){
+                alert(val);
+                this.money=val;
+            }
+        },
+        components: {
+            child: {
+                template:`<div >儿子{{m}}<button @click="get()">多要钱</button></div>`,
+                props:['m'],
+                methods: {
+                    get() {
+                        this.$emit('child-msg',500);// 触发自己的自定义事件 ，让父亲的方法执行
+                    }
+                }
+            }
+        }
+    });
+
+
+</script>
+</html>

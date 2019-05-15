@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模态框</title>
+    <style>
+        .sun-style {
+            width: 500px;
+            height: 200px;
+            position: absolute;
+            top:0;
+            left:0;
+            right:0;
+            bottom: 0;
+            margin: auto;
+            border: 1px solid red;
+            background-color: white;
+        }
+
+        .close {
+            float: right;
+            width: 20px;
+            height: 20px;
+            font-size: 20px;
+            line-height: 20px;
+            text-align: center;
+            border: 1px solid black;
+            color: white;
+            background-color: black;
+            cursor: pointer;
+        }
+        .mask{
+            width:100%;
+            height:100%;
+            position: fixed;
+            top:0;
+            left:0;
+            background-color: rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="container">
+
+    </div>
+    <button @click="show_box">弹框</button>
+
+    <!--如果show是true则显示，如果是false则隐藏，@close 对应的函数是点击会关闭按钮触发的函数-->
+    <child :show.sync="show" @close="fn" v-show="show"></child>
+</div>
+
+
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            show: false
+        },
+        methods: {
+            fn() {
+            },
+            show_box() {
+                this.show = true
+            }
+        },
+        components: {
+            child: {
+                template: `<div class="mask">
+                                <div class="sun-style">
+                                子组 件
+                                    <div class="close" @click="close_box">
+                                        X
+                                    </div>
+                                </div>
+                            </div> `,
+                data: function () {
+                    return {}
+                },
+                props: ['show'],
+                methods: {
+                    close_box() {
+                        this.$emit('update:show', false);
+                    }
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>
