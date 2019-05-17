@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ref</title>
+</head>
+<body>
+<div id="app">
+    <div :style.sync="'background:' + color + ';'" style="width: 100px;height: 100px;">{{msg}}</div>
+    <modal :msg="msg"></modal>
+</div>
+<template id="det">
+    <div>
+        <ul>
+            <li >点我变红色</li>
+            <li>点我变绿色</li>
+            <li>点我变黄色</li>
+            <li>点我变蓝色</li>
+            C:\Users\Administrator\Desktop\a.php
+        </ul>
+    </div>
+</template>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    let modal = {
+        props: ['msg'],
+        template: '#det'
+    };
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            msg: 'hello world',
+            color: 'white'
+        },
+        methods: {},
+        components: {
+            modal
+        }
+    });
+</script>
+</body>
+</html>
