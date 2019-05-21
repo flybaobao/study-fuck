@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ref</title>
+</head>
+<body>
+<div id="app">
+    <div style="width: 100px;height: 100px;border: 1px solid red; " :style="'background-color:'+color+';'">{{msg}}</div>
+    <modal :msg="msg" :color.sync="color"><div>{{msg}}</div></modal>
+    <modal :msg="msg" :color.sync="color"><div>{{msg +1}}</div></modal>
+</div>
+<template id="det">
+    <div>
+        <ul @click="fn">
+            <li :style="'background-color:'+ color">变红色 <button ref="v1">点我</button></li>
+            <li :style="'background-color:'+ color">变绿色 <button ref="v2">点我</button></li>
+            <li :style="'background-color:'+ color">变黄色 <button ref="v3">点我</button></li>
+            <li :style="'background-color:'+ color">变蓝色 <button ref="v4">点我</button></li>
+        </ul>
+        <div>
+            <h3>可以更替的内容</h3>
+            <slot></slot>
+        </div>
+    </div>
+</template>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    let modal = {
+        props: ['msg','color'],
+        template: '#det',
+        methods: {
+            fn (event) {
+                console.log(event);
+                switch (event.toElement){
+                    case this.$refs.v1:
+                        this.$emit('update:color','red');
+                        break;
+                    case this.$refs.v2:
+                        this.$emit('update:color','green');
+                        break;
+                    case this.$refs.v3:
+                        this.$emit('update:color','yellow');
+                        break;
+                    default:
+                        this.$emit('update:color','blue');
+                        break;
+                }
+
+
+
+            }
+        }
+    };
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            msg: 'hello world',
+            color: 'pink'
+        },
+        methods: {},
+        components: {
+            modal
+        }
+    });
+</script>
+</body>
+</html>
