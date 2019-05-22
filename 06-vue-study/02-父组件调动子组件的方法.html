@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <loading ref="load"></loading>
+
+</div>
+<template id="load">
+    <div v-show="flag">
+        <h2>疯狂加载中...</h2>
+    </div>
+</template>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    let loading = {
+        template:'#load',
+
+        data() {
+          return {
+              flag: true
+          }
+        },
+        // 父组件请求数据完毕之后，便可以消除此件
+        methods: {
+            hide () {
+                this.flag = false
+            }
+        }
+    };
+
+    let vm = new Vue({
+        el: '#app',
+        components: {
+            loading
+        },
+        mounted () {
+            // 请求数据
+            this.$refs.load.hide();
+
+        }
+    });
+</script>
+</body>
+</html>

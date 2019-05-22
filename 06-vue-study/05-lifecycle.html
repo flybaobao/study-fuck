@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>component</title>
+</head>
+<body>
+<div id="app">
+    <child ref="child"></child>
+</div>
+<template id="child">
+    <div>
+        <p v-for="a in arr">{{a}}</p>
+    </div>
+</template>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    // 子组件和父组件同事拥有  mounted  方法，会先走子组件，
+    // 父组件要等待子组件挂在完成之后，在执行 自己的mounted
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            radio: 'home'
+        },
+        mounted() {
+            alert('父组件');
+
+
+            //console.log(this.$refs.child.$el.innerHTML);
+            // 123456
+
+            /*
+            * 所以以后我们写mounted  最好加上一个方法， this.$nextTick(() => {})
+            * */
+            this.$nextTick(() => {
+                console.log(this.$refs.child.$el.innerHTML); // 789 子组件更改 后的数据789
+            });
+        },
+        components: {
+            child: {
+                data() {
+                    return {
+                        arr:[1,2,3,4,5,6,7]
+                    }
+                },
+                template: `#child`,
+                // mounted 是同步的，子组件mounted结束后就会执行Fuji mounted，
+                // 在使用 mounted时候里面想要更改数据就会成异步处理，
+                mounted() {
+                    alert('子组件');
+                    this.arr=[7,8,9];
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

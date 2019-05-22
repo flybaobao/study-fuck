@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>例子</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+<body>
+<div class="panel panel-warning">000000</div>
+<div id="app">
+    <panel type="warning" @show-title="pant"></panel>
+</div>
+<template id="panel">
+    <div class="panel" :class="color">
+        <div class="panel-heading" ref="title">heading---------</div>
+        <div class="panel-body">body</div>
+        <div class="panel-footer">footer</div>
+        <button @click="chick">点击</button>
+    </div>
+
+</template>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    let panel = {
+        template: '#panel',
+        props: {
+            type:{ // 当我们从父级组件拿到 变量时，不要试图去改变props，
+                // 我们可以通过data 返回一个变量来接受，再进行修改
+                // 或者通过 computed 来重新计算
+                type: String,
+                default: 'default'
+            }
+        },
+        computed: {
+            color() {
+                return "panel-" + this.type
+            }
+        },
+        methods: {
+            chick() {
+                this.$emit('show-title',this.$refs.title.innerText);
+            }
+        }
+    };
+    let vm = new Vue({
+        el: '#app',
+        components: {
+            panel
+        },
+        methods: {
+            pant( val ){
+                alert(val);
+            }
+        }
+    });
+</script>
+</body>
+</html>
