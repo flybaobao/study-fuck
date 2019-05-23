@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编程式导航</title>
+</head>
+<body>
+<div id="app">
+    <router-link :to="{path:'/home'}">首页</router-link>
+    <router-link :to="{path:'/list'}">列表页</router-link>
+    <router-view></router-view>
+</div>
+<template id="home">
+    <div>这是一home主页
+        <br>
+        <button @click="toList">点我去列表页</button>
+    </div>
+</template>
+<template id="list">
+    <div>这是一个列表页
+        <br>
+        <button @click="back">点我去home页</button>
+    </div>
+</template>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script src="node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+    let home = {
+        template: '#home',
+        methods: {
+            toList() {
+                this.$router.push('/list') // push、强制跳转路径  ['/','/home','list']
+                // this.$router.replace('/list') // replace、强制替换路径  ['/','/list']
+            }
+        }
+    };
+    let list = {
+        template: '#list',
+        methods: {
+            back() {
+                this.$router.go(-1) // 返回某一级
+            }
+        }
+    };
+
+    let routes = [
+        {
+            path: '/', // 默认显示的模板
+            component: home
+        },
+        {
+            path: '/home',
+            component: home
+        },
+        {
+            path: '/list',
+            component: list
+        },
+        {
+            path: '*',
+            redirect: '/home' // 重定向到home页面
+        }
+    ];
+
+    let router = new VueRouter({
+        routes
+    });
+
+    let vm = new Vue({
+        el: '#app',
+        router // 每个组件都会拥有一个 $router的属性 ，this.$router (有r 的里面放的都是方法)
+            // 还有一个名字叫$route this.$route   里面存的都是属性
+    });
+</script>
+</body>
+</html>

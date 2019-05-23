@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue-router</title>
+    <style>
+        .router-link-active{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!--声明式导航-->
+    <router-link to="/home" tag="button">home</router-link>
+    <router-link to="/list" tag="button">list</router-link>
+
+    <router-view></router-view>
+</div>
+<script src="node_modules/vue/dist/vue.js"></script>
+<!--vue-router必须放在vue 后面-->
+<script src="node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+    // 如果 用hash的方式  不利于seo ，也不美观，开发时候用hash调试
+    // 上线时候 用h5的跳转
+    let home = {
+        template:`<div>首页</div>`
+    };
+    let list = {
+        template:`<div>列表页</div>`
+    };
+
+    let routes = [ // 路由的映射表，配置路径和组建的关系
+        {
+            path: '/home', // 配置路径必须 要加“/”
+            component: home // 配置的关系就是页面级组件
+        },
+        {
+            path: '/list',
+            component: list
+        }
+
+    ];
+    let router = new VueRouter({// 引入vue-router自带VueRouter类
+//        mode: 'history', // h5 模式，浏览器自带的history方式 ,使用此方法 浏览器地址栏中的“#” 会消失，地址栏，按回车会出现404情况
+        // 而hash 就不会出现404
+        routes
+    });
+
+    let vm = new Vue({
+        el: '#app',
+        router // 把路由配置到vue实例上
+    });
+
+
+</script>
+</body>
+</html>

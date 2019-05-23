@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>路由嵌套</title>
+    <style>
+        #app{
+            border:1px double black;
+        }
+        .nav{
+            height:50px;
+            width:100%;
+            border:1px solid blue;
+            margin-bottom: 50px;
+        }
+        .content{
+            height:200px;
+            border:1px solid red;
+        }
+        .content_detail{
+            height:100px;
+            border:1px solid yellow;
+        }
+    </style>
+</head>
+
+<body>
+<div id="app">
+    <div class="nav">
+        <router-link to="/home" tag="button">主页</router-link>
+        <router-link to="/detail" tag="button">详情页面</router-link>
+    </div>
+    <div class="content">
+        <router-view></router-view>
+    </div>
+</div>
+<template id="home">
+    <div>
+        home
+    </div>
+</template>
+<template id="detail">
+    <div>
+        detail
+        <div class="nav">
+            <router-link to="/detail/profile">个人信息</router-link>
+            <router-link to="/detail/about">关于</router-link>
+        </div>
+        <div class="content_detail">
+            <router-view></router-view>
+        </div>
+    </div>
+</template>
+<template id="profile">
+    <div>
+        profile
+    </div>
+</template>
+<template id="about">
+    <div>
+        about
+    </div>
+</template>
+
+<script src="node_modules/vue/dist/vue.js"></script>
+<script src="node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+    let home = {
+        template:'#home'
+    };
+    let detail = {
+        template:'#detail'
+    };
+    let profile = {
+        template:'#profile'
+    };
+    let about = {
+        template:'#about'
+    };
+
+    let routes = [
+        {
+            path: '',
+            component: home
+        },{
+            path: '/home',
+            component: home
+        },{
+            path: '/detail',
+            component: detail,
+            children: [//这里 path 不要带 ’/‘  '/' 代表的是根路径
+                {
+                    path: 'profile',
+                    component: profile
+                },{
+                    path: 'about',
+                    component: about
+                }
+            ]
+        }
+    ];
+
+    let router = new VueRouter({
+        routes
+    });
+
+    let vm = new Vue({
+        el: '#app',
+        router
+    });
+</script>
+</body>
+</html>

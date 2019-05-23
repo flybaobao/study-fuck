@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>eventBus</title>
+</head>
+<body>
+<div id="app">
+    <bor-one></bor-one>
+    <bor-two></bor-two>
+</div>
+
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    // 各个组件之间不通过父级传递数据
+    // 事件车  主要原理是，发布订阅  不常用
+
+    let EventBus = new Vue();// 作为中间介
+
+    let borOne = {
+        template: `<div>{{color}}<button @click="changeOne">点击</button></div>`,
+        data() {
+            return {
+                color: '绿色',
+                old: '绿色'
+            }
+        },
+        created() {
+            EventBus.$on('changeRed', (val) => {
+                this.color = val;
+            });
+        },
+        methods: {
+            changeOne() {
+                EventBus.$emit('changeGreen', this.old);
+            }
+        }
+    };
+
+    let borTwo = {
+        template: `<div>{{color}}<button @click="changeTwo">点击</button></div>`,
+        data() {
+            return {
+                color: '红色',
+                old: '红色'
+            }
+        },
+        created() {
+            EventBus.$on('changeGreen', (val) => {
+                this.color = val;
+            });
+        },
+        methods: {
+            changeTwo() {
+                EventBus.$emit('changeRed', this.old);
+            }
+        }
+    };
+
+    let vm = new Vue({
+        el: '#app',
+        components: {
+            borOne, borTwo
+        }
+    });
+
+</script>
+</body>
+</html>
