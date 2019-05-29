@@ -27,7 +27,7 @@
 <body>
 <div id="app">
     <div class="nav">
-        <router-link to="/home" tag="button">主页</router-link>
+        <router-link to="/home/204" tag="button">主页</router-link>
         <router-link to="/detail" tag="button">详情页面</router-link>
     </div>
     <div class="content">
@@ -83,7 +83,7 @@
             path: '',
             component: home
         },{
-            path: '/home',
+            path: '/home/:id',// 参数放到this.$route.params
             component: home
         },{
             path: '/detail',
